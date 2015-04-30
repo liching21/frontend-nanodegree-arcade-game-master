@@ -50,8 +50,24 @@ Player.prototype.render = function(){
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 }
 
-Player.prototype.handleInput = function(){
+Player.prototype.handleInput = function(key){
+    console.log("the key is " + key);
 
+    if(key == 'left'){
+        this.x -= 100;
+    }
+    else if(key == 'right'){
+        this.x += 100;
+    }
+    else if(key == 'up'){
+        this.y -= 100;
+    }
+    else if(key == 'down'){
+        this.y += 100;
+    }
+    else{
+        console.log("Please enter use the arrow keys");
+    }
 }
 
 
