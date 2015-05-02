@@ -51,22 +51,42 @@ Player.prototype.render = function(){
 }
 
 Player.prototype.handleInput = function(key){
-    console.log("the key is " + key);
 
+    // moving the main character
     if(key == 'left'){
-        this.x -= 100;
+
+        if(this.x - 100 < 0)
+            console.log("You can't move to the left");
+        else{
+            this.x -= 100;
+        }
     }
     else if(key == 'right'){
-        this.x += 100;
+
+        if(this.x > 300)
+            console.log("You can't move to the right");
+        else{
+            this.x += 100;
+        }
     }
     else if(key == 'up'){
-        this.y -= 100;
+
+        if(this.y - 100 < 0)
+            console.log("You've already won the game, stop going up!");
+        else{
+            this.y -= 100;
+        }
     }
     else if(key == 'down'){
-        this.y += 100;
+
+        if(this.y > 300)
+            console.log("You can't go further down");
+        else{
+            this.y += 100;
+        }
     }
     else{
-        console.log("Please enter use the arrow keys");
+        console.log("Please enter a valid arrow key");
     }
 }
 
