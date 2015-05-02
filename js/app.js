@@ -4,8 +4,12 @@ var Enemy = function() {
     // we've provided one for you to get started
 
     //Setting the Enemy initial location (you need to implement)
-    this.x = 100; //some value
-    this.y = 150; //some value
+    this.x = 0; //some value
+
+    this.y = Math.floor((Math.random() * 3) + 1) * 70;
+    //this.y = 150; //some value
+
+    this.speed = Math.floor((Math.random() * 6) + 1) * 50;
 
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
@@ -24,6 +28,19 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
+
+    if(this.x == 0){
+        this.x++;
+    }
+
+    if(this.x > 505){
+        return;
+    }
+
+    var move = this.speed * dt;
+    this.x = this.x + move;
+
+    console.log("The Enemy Location is " + this.x + " , " + this.y + " , speed is " + this.speed);
 }
 
 // Draw the enemy on the screen, required method for game
@@ -71,18 +88,18 @@ Player.prototype.handleInput = function(key){
     }
     else if(key == 'up'){
 
-        if(this.y - 100 < 0)
+        if(this.y - 80 < 0)
             console.log("You've already won the game, stop going up!");
         else{
-            this.y -= 100;
+            this.y -= 80;
         }
     }
     else if(key == 'down'){
 
-        if(this.y > 300)
+        if(this.y >= 400)
             console.log("You can't go further down");
         else{
-            this.y += 100;
+            this.y += 80;
         }
     }
     else{
@@ -95,12 +112,18 @@ Player.prototype.handleInput = function(key){
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
-var bug = new Enemy();
+
+/** TODO Extra: randomise the inital player location **/
 
 var allEnemies = [];
-allEnemies[0] = bug;
-var player = new Player();
 
+var enemyNum = 10;
+for (var i = 0; i < enemyNum; i++){
+    var enemy = new Enemy();
+    allEnemies.push(enemy);
+}
+
+var player = new Player();
 
 
 
