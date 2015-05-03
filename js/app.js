@@ -130,45 +130,18 @@ var checkCollisions = function(){
         bugHeight = bugY + 140;
 
         if(heroX > bugX && heroX < bugWidth && heroY > bugY && heroY <= bugHeight){
-            console.log("Collision!!!");
-            player.x = 200;
+            player.x = Math.floor((Math.random() * 3) + 1) * 100;
             player.y = 400;
             collide = true;
             return collide;
         }
-        //console.log("hx= " + heroX + ", bx= " + bugX + " bw= " + bugWidth);
+
+
+        console.log("player.x= " + player.x);
         //console.log("hy= " + heroY + ", by= " + bugY + " bh= " + bugHeight);
     }
     return collide;
 }
-
-/**Player.prototype.collision = function(){
-
-    var heroX = this.x + 50;
-    var heroY = this.y + 100;
-
-    var bugX, bugY, bugWidth, bugHeight;
-
-    //checking collision for each enemy
-    for (var i = 0; i < enemyNum; i++){
-        bugX = allEnemies[i].x;
-        bugY = allEnemies[i].y;
-        bugWidth = bugX + 100;
-        bugHeight = bugY + 140;
-
-        if(heroX > bugX && heroX < bugWidth && heroY > bugY && heroY <= bugHeight){
-            console.log("Collision!!!");
-            this.x = 200;
-            this.y = 400;
-            GAME_RESET = true;
-        }
-
-        //console.log("hx= " + heroX + ", bx= " + bugX + " bw= " + bugWidth);
-        //console.log("hy= " + heroY + ", by= " + bugY + " bh= " + bugHeight);
-
-    }
-}**/
-
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
