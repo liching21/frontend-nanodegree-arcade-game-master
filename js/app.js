@@ -1,4 +1,4 @@
-var GAME_RESET = false;
+var counter = 0;
 
 // Enemies our player must avoid
 var Enemy = function() {
@@ -49,7 +49,7 @@ Enemy.prototype.update = function(dt) {
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-    ctx.strokeRect(this.x, this.y + 80, 100, 60);
+    //ctx.strokeRect(this.x, this.y + 80, 100, 60);
 }
 
 // Now write your own player class
@@ -58,20 +58,20 @@ Enemy.prototype.render = function() {
 
 var Player = function() {
     //Setting the Enemy initial location (you need to implement)
-    this.x = 200;
+    this.x = Math.floor((Math.random() * 3) + 1) * 100;
     this.y = 400;
     this.sprite = 'images/char-boy.png';
 };
 
 Player.prototype.update = function(){
 
-    //this.collision();
 }
 
 Player.prototype.render = function(){
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     //ctx.strokeRect(this.x + 10, this.y + 60, 80, 80);
-    ctx.strokeRect(this.x + 50, this.y + 100, 80, 80);
+    //ctx.strokeRect(this.x + 50, this.y + 100, 80, 80);
+    console.log("The counter is " + counter);
 }
 
 Player.prototype.handleInput = function(key){
@@ -136,19 +136,25 @@ var checkCollisions = function(){
             return collide;
         }
 
-
-        console.log("player.x= " + player.x);
+        //console.log("player.y= " + player.y);
         //console.log("hy= " + heroY + ", by= " + bugY + " bh= " + bugHeight);
     }
     return collide;
 }
 
+var gameWon = function(){
+
+    if(player.y == 0){
+        player.x = Math.floor((Math.random() * 3) + 1) * 100;
+        player.y = 400;
+        return true;
+    }
+    return false;
+}
+
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-
-
-/** TODO Extra: randomise the inital player location **/
 
 var allEnemies = [];
 
@@ -159,6 +165,7 @@ for (var i = 0; i < enemyNum; i++){
 }
 
 var player = new Player();
+
 
 
 // This listens for key presses and sends the keys to your

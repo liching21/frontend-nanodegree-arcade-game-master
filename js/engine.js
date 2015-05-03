@@ -80,10 +80,17 @@ var Engine = (function(global) {
      */
     function update(dt) {
         updateEntities(dt);
-        if(checkCollisions() == true)
-        {
-            reset();
+        var collision = checkCollisions();
+        var gameW = gameWon();
+        if(collision == true){
+            counter--;
         }
+
+        if(gameW == true)
+        {
+            counter++;
+        }
+        reset(); //TODO
     }
 
     /* This is called by the update function  and loops through all of the
@@ -139,6 +146,14 @@ var Engine = (function(global) {
             }
         }
 
+        // Counter Attributes
+        ctx.font = "36pt Impact";
+        ctx.fillStyle = "white";
+        ctx.strokeStyle = "black";
+        ctx.lineWidth = 3;
+
+        ctx.fillText(counter, canvas.width - 50, 100);
+        ctx.strokeText(counter, canvas.width - 50, 100);
 
         renderEntities();
     }
@@ -164,7 +179,6 @@ var Engine = (function(global) {
      */
     function reset() {
         // noop
-        console.log("game reset");
     }
 
     /* Go ahead and load all of the images we know we're going to need to
