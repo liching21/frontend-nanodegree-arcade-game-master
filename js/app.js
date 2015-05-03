@@ -60,7 +60,6 @@ var Player = function() {
     //Setting the Enemy initial location (you need to implement)
     this.x = Math.floor((Math.random() * 3) + 1) * 100;
     this.y = 400;
-    this.sprite = 'images/char-boy.png';
 };
 
 Player.prototype.update = function(){
@@ -142,6 +141,7 @@ var checkCollisions = function(){
     return collide;
 }
 
+//Player reached the river, reset player location
 var gameWon = function(){
 
     if(player.y == 0){
@@ -166,6 +166,34 @@ for (var i = 0; i < enemyNum; i++){
 
 var player = new Player();
 
+var selectPlayer = function(){
+
+    var playerNum;
+    while (playerNum != 1 || playerNum != 2 || playerNum != 3 || playerNum != 4 || playerNum != 5)
+    {
+        playerNum = prompt("Please select a player:\n1 = Boy, 2 = cat-girl, 3 = horn-girl, 4 = pink-girl, 5 = princess-girl");
+        if(playerNum == 1){
+            player.sprite = 'images/char-boy.png';
+            return;
+        }
+        else if(playerNum == 2){
+            player.sprite = 'images/char-cat-girl.png';
+            return;
+        }
+        else if(playerNum == 3){
+            player.sprite = 'images/char-horn-girl.png';
+            return;
+        }
+        else if(playerNum == 4){
+            player.sprite = 'images/char-pink-girl.png';
+            return;
+        }
+        else if(playerNum == 5){
+            player.sprite = 'images/char-princess-girl.png';
+            return;
+        }
+    }
+}
 
 
 // This listens for key presses and sends the keys to your
