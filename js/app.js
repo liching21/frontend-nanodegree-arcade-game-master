@@ -5,10 +5,13 @@ var Enemy = function() {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
-    //Setting the Enemy initial location (you need to implement)
-    this.x = 100; //some value
+    //Setting the Enemy initial location the left ourside the canvas
+    this.x = 100;
 
-    this.y = Math.floor((Math.random() * 3) + 1) * 70;
+    //Randomise the y-value to either of the three lanes
+
+    //this.y = 210; // 50 130
+    this.y = enemyInitLoc[Math.floor((Math.random() * 3))];
 
     //this.speed = 0;
     this.speed = Math.floor((Math.random() * 6) + 1) * 50;
@@ -38,7 +41,7 @@ Enemy.prototype.update = function(dt) {
     // if enemy goes off screen, it resets back to the beginning
     if(this.x > 505){
         this.x = 0;
-        this.y = Math.floor((Math.random() * 3) + 1) * 70;
+        this.y = enemyInitLoc[Math.floor((Math.random() * 3))];
         this.speed = Math.floor((Math.random() * 6) + 1) * 50;
     }
 
@@ -50,6 +53,8 @@ Enemy.prototype.update = function(dt) {
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     //ctx.strokeRect(this.x, this.y + 80, 100, 60);
+    console.log("The y loc of enemy is " + this.y);
+
 }
 
 // Now write your own player class
@@ -60,6 +65,7 @@ var Player = function() {
     //Setting the Enemy initial location (you need to implement)
     this.x = Math.floor((Math.random() * 3) + 1) * 100;
     this.y = 400;
+    this.sprite = 'images/char-boy.png';
 };
 
 Player.prototype.update = function(){
@@ -157,6 +163,7 @@ var gameWon = function(){
 // Place the player object in a variable called player
 
 var allEnemies = [];
+var enemyInitLoc = [55, 137, 220]; //the 3 initial y location for the enemy
 
 var enemyNum = 3;
 for (var i = 0; i < enemyNum; i++){
