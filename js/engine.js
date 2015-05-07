@@ -66,7 +66,7 @@ var Engine = (function(global) {
     function init() {
         reset();
         lastTime = Date.now();
-        //selectPlayer();
+        selectPlayer();
         main();
     }
 
