@@ -66,7 +66,7 @@ var Engine = (function(global) {
     function init() {
         reset();
         lastTime = Date.now();
-        selectPlayer();
+        //selectPlayer();
         main();
     }
 
@@ -99,7 +99,6 @@ var Engine = (function(global) {
         allEnemies.forEach(function(enemy) {
             enemy.update(dt);
         });
-        player.update();
     }
 
     /* This function initially draws the "game level", it will then call
@@ -147,8 +146,8 @@ var Engine = (function(global) {
         ctx.strokeStyle = "black";
         ctx.lineWidth = 3;
 
-        ctx.fillText(counter, canvas.width - 50, 100);
-        ctx.strokeText(counter, canvas.width - 50, 100);
+        ctx.fillText(counter, canvas.width - 65, 100);
+        ctx.strokeText(counter, canvas.width - 65, 100);
 
         renderEntities();
     }

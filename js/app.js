@@ -26,8 +26,10 @@ Enemy.prototype.update = function(dt) {
     // which will ensure the game runs at the same speed for
     // all computers.
 
-    if(this.x == 0){
-        this.x++;
+    var move = this.speed * dt;
+
+    if (this.x < 505){
+        this.x += move;
     }
 
     // if enemy goes off screen, it resets back to the beginning
@@ -36,36 +38,33 @@ Enemy.prototype.update = function(dt) {
         this.y = enemyInitLoc[Math.floor((Math.random() * 3))];
         this.speed = Math.floor((Math.random() * 6) + 1) * 50;
     }
-
-    var move = this.speed * dt;
-    this.x = this.x + move;
 }
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    ctx.strokeRect(this.x, this.y + 80, enemyWidth, enemyHeight);
 }
 
-// Now write your own player class
-// This class requires an update(), render() and
-// a handleInput() method.
+/** Player contructor **/
 var Player = function() {
     //Setting the Enemy initial location (you need to implement)
+    this.reset();
+    this.sprite = 'images/char-boy.png';
+};
+
+/** Resets the players initial location **/
+Player.prototype.reset = function(){
 
     //Randomise the inital starting X value, Y is at the bottom
     var randomNum = Math.floor((Math.random() * 3) + 1)
     this.x = (randomNum * 100) +  randomNum;
     this.y = 390;
-    this.sprite = 'images/char-boy.png';
-};
-
-Player.prototype.update = function(){
-
 }
 
 Player.prototype.render = function(){
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-    //ctx.strokeRect(this.x + 10, this.y + 60, 80, 80);
+    ctx.strokeRect(this.x + 16, this.y + 64, playerWidth, playerHeight);
     //ctx.strokeRect(this.x + 50, this.y + 100, 80, 80);
     console.log("The player loc is " + this.x + " , " + this.y);
 }
@@ -92,10 +91,8 @@ Player.prototype.handleInput = function(key){
     else if(key == 'up'){
 
         if(this.y - 83 < 0){
-            console.log("You've already won the game, stop going up!");
-            var randomNum = Math.floor((Math.random() * 3) + 1)
-            this.x = (randomNum * 100) +  randomNum;
-            this.y = 390;
+            console.log("You've already won the game, HURRAY! :D");
+            this.reset();
             counter++;
         }
         else{
@@ -104,7 +101,7 @@ Player.prototype.handleInput = function(key){
     }
     else if(key == 'down'){
 
-        if(this.y >= 400)
+        if(this.y + 83 >= 400)
             console.log("You can't go further down");
         else{
             this.y += 83;
@@ -115,10 +112,30 @@ Player.prototype.handleInput = function(key){
     }
 }
 
-/** TODO: FIX THIS **/
-/** Checking for collision between player and enemy **/
+/** Check for collisions between player and enemy **/
 var checkCollisions = function(){
 
+    var collide = false;
+    var heroX = player.x;
+    var heroY = player.y;
+    var bugX, bugY, bugWidth, bugHeight;
+
+    for (var i = 0; i < enemyNum; i++){
+        bugX = allEnemies[i].x;
+        bugY = allEnemies[i].y;
+        bugWidth = bugX + enemyWidth;
+        bugHeight = bugY + enemyHeight;
+
+        if(heroX > bugX && heroX < bugWidth && heroY > bugY && heroY <= bugHeight){
+            player.reset();
+            console.log("COLLISION!!");
+            collide = true;
+            return collide;
+        }
+    }
+    return collide;
+
+    /**
     var heroX = player.x + 50;
     var heroY = player.y + 100;
     var collide = false;
@@ -138,7 +155,7 @@ var checkCollisions = function(){
             return collide;
         }
     }
-    return collide;
+    return collide;**/
 }
 
 // Now instantiate your objects.
@@ -146,9 +163,13 @@ var checkCollisions = function(){
 // Place the player object in a variable called player
 
 var allEnemies = [];
+var enemyWidth = 100;
+var enemyHeight = 60;
+var playerWidth = 70;
+var playerHeight = 76;
 var enemyInitLoc = [55, 137, 220]; //the 3 initial y location for the enemy
 
-var enemyNum = 3;
+var enemyNum = 1;
 for (var i = 0; i < enemyNum; i++){
     var enemy = new Enemy();
     allEnemies.push(enemy);
