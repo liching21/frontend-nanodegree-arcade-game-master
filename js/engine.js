@@ -82,16 +82,10 @@ var Engine = (function(global) {
     function update(dt) {
         updateEntities(dt);
         var collision = checkCollisions();
-        var gameW = gameWon();
         if(collision == true){
             counter--;
         }
-
-        if(gameW == true)
-        {
-            counter++;
-        }
-        reset(); //TODO
+        reset();
     }
 
     /* This is called by the update function  and loops through all of the

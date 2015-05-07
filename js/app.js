@@ -5,12 +5,10 @@ var Enemy = function() {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
-    //Setting the Enemy initial location the left ourside the canvas
-    this.x = 100;
+    //Setting the Enemy initial location the left outside the canvas
+    this.x = -100;
 
     //Randomise the y-value to either of the three lanes
-
-    //this.y = 210; // 50 130
     this.y = enemyInitLoc[Math.floor((Math.random() * 3))];
 
     //this.speed = 0;
@@ -19,13 +17,7 @@ var Enemy = function() {
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
-
-
 }
-
-/** The Enemy function, which initiates the Enemy by:
-Setting the Enemy initial location (you need to implement)
-Setting the Enemy speed (you need to implement)*/
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
@@ -40,7 +32,7 @@ Enemy.prototype.update = function(dt) {
 
     // if enemy goes off screen, it resets back to the beginning
     if(this.x > 505){
-        this.x = 0;
+        this.x = -100;
         this.y = enemyInitLoc[Math.floor((Math.random() * 3))];
         this.speed = Math.floor((Math.random() * 6) + 1) * 50;
     }
@@ -52,19 +44,18 @@ Enemy.prototype.update = function(dt) {
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-    //ctx.strokeRect(this.x, this.y + 80, 100, 60);
-    console.log("The y loc of enemy is " + this.y);
-
 }
 
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
-
 var Player = function() {
     //Setting the Enemy initial location (you need to implement)
-    this.x = Math.floor((Math.random() * 3) + 1) * 100;
-    this.y = 400;
+
+    //Randomise the inital starting X value, Y is at the bottom
+    var randomNum = Math.floor((Math.random() * 3) + 1)
+    this.x = (randomNum * 100) +  randomNum;
+    this.y = 390;
     this.sprite = 'images/char-boy.png';
 };
 
@@ -76,7 +67,7 @@ Player.prototype.render = function(){
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     //ctx.strokeRect(this.x + 10, this.y + 60, 80, 80);
     //ctx.strokeRect(this.x + 50, this.y + 100, 80, 80);
-    console.log("The counter is " + counter);
+    console.log("The player loc is " + this.x + " , " + this.y);
 }
 
 Player.prototype.handleInput = function(key){
@@ -84,26 +75,31 @@ Player.prototype.handleInput = function(key){
     // moving the main character
     if(key == 'left'){
 
-        if(this.x - 100 < 0)
+        if(this.x - 101 < 0)
             console.log("You can't move to the left");
         else{
-            this.x -= 100;
+            this.x -= 101;
         }
     }
     else if(key == 'right'){
 
-        if(this.x > 300)
+        if(this.x > 400)
             console.log("You can't move to the right");
         else{
-            this.x += 100;
+            this.x += 101;
         }
     }
     else if(key == 'up'){
 
-        if(this.y - 80 < 0)
+        if(this.y - 83 < 0){
             console.log("You've already won the game, stop going up!");
+            var randomNum = Math.floor((Math.random() * 3) + 1)
+            this.x = (randomNum * 100) +  randomNum;
+            this.y = 390;
+            counter++;
+        }
         else{
-            this.y -= 80;
+            this.y -= 83;
         }
     }
     else if(key == 'down'){
@@ -111,7 +107,7 @@ Player.prototype.handleInput = function(key){
         if(this.y >= 400)
             console.log("You can't go further down");
         else{
-            this.y += 80;
+            this.y += 83;
         }
     }
     else{
@@ -119,6 +115,7 @@ Player.prototype.handleInput = function(key){
     }
 }
 
+/** TODO: FIX THIS **/
 /** Checking for collision between player and enemy **/
 var checkCollisions = function(){
 
@@ -140,22 +137,8 @@ var checkCollisions = function(){
             collide = true;
             return collide;
         }
-
-        //console.log("player.y= " + player.y);
-        //console.log("hy= " + heroY + ", by= " + bugY + " bh= " + bugHeight);
     }
     return collide;
-}
-
-//Player reached the river, reset player location
-var gameWon = function(){
-
-    if(player.y == 0){
-        player.x = Math.floor((Math.random() * 3) + 1) * 100;
-        player.y = 400;
-        return true;
-    }
-    return false;
 }
 
 // Now instantiate your objects.
