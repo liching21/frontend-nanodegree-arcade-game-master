@@ -51,7 +51,6 @@ Enemy.prototype.render = function() {
 var Player = function() {
     //Setting the Enemy initial location (you need to implement)
     this.reset();
-    this.sprite = 'images/char-boy.png';
 };
 
 /** Resets the players initial location **/
