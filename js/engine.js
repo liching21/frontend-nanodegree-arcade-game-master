@@ -81,10 +81,7 @@ var Engine = (function(global) {
      */
     function update(dt) {
         updateEntities(dt);
-        var collision = checkCollisions();
-        if(collision == true){
-            counter--;
-        }
+        checkCollisions();
         reset();
     }
 

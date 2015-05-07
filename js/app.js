@@ -1,9 +1,10 @@
-var counter = 0;
+/**
+/*  Initial Code provided by Udacity
+/*  Futher modified by Liching Yew
+/**
 
-// Enemies our player must avoid
+/** Enemy contructor **/
 var Enemy = function() {
-    // Variables applied to each of our instances go here,
-    // we've provided one for you to get started
 
     //Setting the Enemy initial location the left outside the canvas
     this.x = -100;
@@ -11,23 +12,24 @@ var Enemy = function() {
     //Randomise the y-value to either of the three lanes
     this.y = enemyInitLoc[Math.floor((Math.random() * 3))];
 
-    //this.speed = 0;
+    //Randomise the speed of the enemy
     this.speed = Math.floor((Math.random() * 6) + 1) * 50;
 
-    // The image/sprite for our enemies, this uses
-    // a helper we've provided to easily load images
+    // The image/sprite for our enemies
     this.sprite = 'images/enemy-bug.png';
 }
 
-// Update the enemy's position, required method for game
-// Parameter: dt, a time delta between ticks
+/**
+ *  @param dt, a time delta between ticks
+ *  Update the enemy's position, required method for game
+ */
 Enemy.prototype.update = function(dt) {
-    // You should multiply any movement by the dt parameter
-    // which will ensure the game runs at the same speed for
-    // all computers.
 
+    // multiply movement by the dt, to ensure the game runs at
+    // the same speed for all computers.
     var move = this.speed * dt;
 
+    // move enemy on screen
     if (this.x < 505){
         this.x += move;
     }
@@ -40,10 +42,9 @@ Enemy.prototype.update = function(dt) {
     }
 }
 
-// Draw the enemy on the screen, required method for game
+/** Draw the enemy on the screen, required method for game **/
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-    ctx.strokeRect(this.x, this.y + 80, enemyWidth, enemyHeight);
 }
 
 /** Player contructor **/
@@ -62,13 +63,15 @@ Player.prototype.reset = function(){
     this.y = 390;
 }
 
+/** Draw the player on the screen, required method for game **/
 Player.prototype.render = function(){
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-    ctx.strokeRect(this.x + 16, this.y + 64, playerWidth, playerHeight);
-    //ctx.strokeRect(this.x + 50, this.y + 100, 80, 80);
-    console.log("The player loc is " + this.x + " , " + this.y);
 }
 
+/**
+ *  @param key, key entered on the keyboard
+ *  Handles the different player input
+ */
 Player.prototype.handleInput = function(key){
 
     // moving the main character
@@ -91,7 +94,7 @@ Player.prototype.handleInput = function(key){
     else if(key == 'up'){
 
         if(this.y - 83 < 0){
-            console.log("You've already won the game, HURRAY! :D");
+            console.log("You've won the game, HURRAY! :D");
             this.reset();
             counter++;
         }
@@ -128,40 +131,19 @@ var checkCollisions = function(){
 
         if(heroX > bugX && heroX < bugWidth && heroY > bugY && heroY <= bugHeight){
             player.reset();
-            console.log("COLLISION!!");
+            console.log("collisions!!");
+            counter--;
             collide = true;
-            return collide;
         }
     }
-    return collide;
-
-    /**
-    var heroX = player.x + 50;
-    var heroY = player.y + 100;
-    var collide = false;
-    var bugX, bugY, bugWidth, bugHeight;
-
-    //checking collision for each enemy
-    for (var i = 0; i < enemyNum; i++){
-        bugX = allEnemies[i].x;
-        bugY = allEnemies[i].y;
-        bugWidth = bugX + 100;
-        bugHeight = bugY + 140;
-
-        if(heroX > bugX && heroX < bugWidth && heroY > bugY && heroY <= bugHeight){
-            player.x = Math.floor((Math.random() * 3) + 1) * 100;
-            player.y = 400;
-            collide = true;
-            return collide;
-        }
-    }
-    return collide;**/
 }
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
+/** Initialise global variables **/
+var counter = 0;
 var allEnemies = [];
 var enemyWidth = 100;
 var enemyHeight = 60;
@@ -169,14 +151,18 @@ var playerWidth = 70;
 var playerHeight = 76;
 var enemyInitLoc = [55, 137, 220]; //the 3 initial y location for the enemy
 
-var enemyNum = 1;
+// Instantiate and add enemies on the game
+var enemyNum = 3;
 for (var i = 0; i < enemyNum; i++){
     var enemy = new Enemy();
     allEnemies.push(enemy);
 }
 
+// Instantiate the player
 var player = new Player();
 
+
+/** Select a player before the game starts **/
 var selectPlayer = function(){
 
     var playerNum;
