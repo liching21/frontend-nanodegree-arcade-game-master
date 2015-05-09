@@ -1,7 +1,7 @@
 /**
-/*  Initial Code provided by Udacity
-/*  Futher modified by Liching Yew
-/**
+  * @desc this will create and initialise the objects used in the game
+  * @author Liching Yew liching.yew@gmail.com
+*/
 
 /** Enemy contructor **/
 var Enemy = function() {
@@ -19,10 +19,10 @@ var Enemy = function() {
     this.sprite = 'images/enemy-bug.png';
 }
 
-/**
- *  @param dt, a time delta between ticks
- *  Update the enemy's position, required method for game
- */
+ /**
+  * @desc updates the enemy class with each frame
+  * @param dt - time delta information
+*/
 Enemy.prototype.update = function(dt) {
 
     // multiply movement by the dt, to ensure the game runs at
@@ -42,7 +42,9 @@ Enemy.prototype.update = function(dt) {
     }
 }
 
-/** Draw the enemy on the screen, required method for game **/
+ /**
+  * @desc Draw the enemy on the screen, required method for game
+*/
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 }
@@ -53,7 +55,9 @@ var Player = function() {
     this.reset();
 };
 
-/** Resets the players initial location **/
+/**
+  * @desc reset the player to the initial location
+*/
 Player.prototype.reset = function(){
 
     //Randomise the inital starting X value, Y is at the bottom
@@ -62,15 +66,17 @@ Player.prototype.reset = function(){
     this.y = 390;
 }
 
-/** Draw the player on the screen, required method for game **/
+/**
+  * @desc draw the player on screen, required method for the game
+*/
 Player.prototype.render = function(){
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 }
 
-/**
- *  @param key, key entered on the keyboard
- *  Handles the different player input
- */
+ /**
+  * @desc handles user input to control the player
+  * @param key - key entered on the keyboard
+*/
 Player.prototype.handleInput = function(key){
 
     // moving the main character
@@ -114,10 +120,11 @@ Player.prototype.handleInput = function(key){
     }
 }
 
-/** Check for collisions between player and enemy **/
+/**
+  * @desc checks for collison between the player and the enemy
+*/
 var checkCollisions = function(){
 
-    var collide = false;
     var heroX = player.x;
     var heroY = player.y;
     var bugX, bugY, bugWidth, bugHeight;
@@ -132,16 +139,11 @@ var checkCollisions = function(){
             player.reset();
             console.log("collisions!!");
             counter--;
-            collide = true;
         }
     }
 }
 
-// Now instantiate your objects.
-// Place all enemy objects in an array called allEnemies
-// Place the player object in a variable called player
-
-/** Initialise global variables **/
+// Initialise global variables and objects
 var counter = 0;
 var allEnemies = [];
 var enemyWidth = 100;
@@ -160,8 +162,9 @@ for (var i = 0; i < enemyNum; i++){
 // Instantiate the player
 var player = new Player();
 
-
-/** Select a player before the game starts **/
+/**
+  * @desc alert to user to select a player before the game begins
+*/
 var selectPlayer = function(){
 
     var playerNum;
@@ -191,9 +194,11 @@ var selectPlayer = function(){
     }
 }
 
-
-// This listens for key presses and sends the keys to your
-// Player.handleInput() method. You don't need to modify this.
+/**
+  * @desc This listens for key presses and sends the keys to your
+  * Player.handleInput() method.
+  * @param 'keyup', a function
+*/
 document.addEventListener('keyup', function(e) {
     var allowedKeys = {
         37: 'left',
