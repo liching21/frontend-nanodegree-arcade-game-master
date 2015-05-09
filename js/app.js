@@ -1,9 +1,13 @@
 /**
   * @desc this will create and initialise the objects used in the game
+  * for project on Udacity
   * @author Liching Yew liching.yew@gmail.com
 */
 
-/** Enemy contructor **/
+/**
+ * @desc Represents an enemy
+ * @constructor
+ */
 var Enemy = function() {
 
     //Setting the Enemy initial location the left outside the canvas
@@ -17,7 +21,7 @@ var Enemy = function() {
 
     // The image/sprite for our enemies
     this.sprite = 'images/enemy-bug.png';
-}
+};
 
  /**
   * @desc updates the enemy class with each frame
@@ -40,18 +44,22 @@ Enemy.prototype.update = function(dt) {
         this.y = enemyInitLoc[Math.floor((Math.random() * 3))];
         this.speed = Math.floor((Math.random() * 6) + 1) * 50;
     }
-}
+};
 
  /**
   * @desc Draw the enemy on the screen, required method for game
 */
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-}
+};
 
-/** Player contructor **/
+/**
+ * @desc Represents a player
+ * @constructor
+ */
 var Player = function() {
-    //Setting the Enemy initial location (you need to implement)
+
+    //Setting the initial player location
     this.reset();
 };
 
@@ -61,17 +69,17 @@ var Player = function() {
 Player.prototype.reset = function(){
 
     //Randomise the inital starting X value, Y is at the bottom
-    var randomNum = Math.floor((Math.random() * 3) + 1)
+    var randomNum = Math.floor((Math.random() * 3) + 1);
     this.x = (randomNum * 100) +  randomNum;
     this.y = 390;
-}
+};
 
 /**
   * @desc draw the player on screen, required method for the game
 */
 Player.prototype.render = function(){
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-}
+};
 
  /**
   * @desc handles user input to control the player
@@ -118,7 +126,7 @@ Player.prototype.handleInput = function(key){
     else{
         console.log("Please enter a valid arrow key");
     }
-}
+};
 
 /**
   * @desc checks for collison between the player and the enemy
@@ -141,15 +149,13 @@ var checkCollisions = function(){
             counter--;
         }
     }
-}
+};
 
 // Initialise global variables and objects
 var counter = 0;
 var allEnemies = [];
 var enemyWidth = 100;
 var enemyHeight = 60;
-var playerWidth = 70;
-var playerHeight = 76;
 var enemyInitLoc = [55, 137, 220]; //the 3 initial y location for the enemy
 
 // Instantiate and add enemies on the game
@@ -192,7 +198,7 @@ var selectPlayer = function(){
             return;
         }
     }
-}
+};
 
 /**
   * @desc This listens for key presses and sends the keys to your
