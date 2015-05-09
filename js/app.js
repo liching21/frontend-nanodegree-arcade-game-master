@@ -8,7 +8,10 @@
  * @desc Represents an enemy
  * @constructor
  */
+ "use strict";
+
 var Enemy = function() {
+
 
     //Setting the Enemy initial location the left outside the canvas
     this.x = -100;
@@ -60,6 +63,7 @@ Enemy.prototype.render = function() {
 var Player = function() {
 
     //Setting the initial player location
+
     this.reset();
 };
 
