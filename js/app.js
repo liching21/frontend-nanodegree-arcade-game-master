@@ -4,12 +4,12 @@
   * @author Liching Yew liching.yew@gmail.com
 */
 
+
+"use strict";
 /**
  * @desc Represents an enemy
  * @constructor
  */
- "use strict";
-
 var Enemy = function() {
 
 
@@ -63,7 +63,6 @@ Enemy.prototype.render = function() {
 var Player = function() {
 
     //Setting the initial player location
-
     this.reset();
 };
 
@@ -95,7 +94,7 @@ Player.prototype.handleInput = function(key){
     if(key == 'left'){
 
         if(this.x - 101 < 0)
-            console.log("You can't move to the left");
+            alert("You can't move to the left");
         else{
             this.x -= 101;
         }
@@ -103,7 +102,7 @@ Player.prototype.handleInput = function(key){
     else if(key == 'right'){
 
         if(this.x > 400)
-            console.log("You can't move to the right");
+            alert("You can't move to the right");
         else{
             this.x += 101;
         }
@@ -111,7 +110,6 @@ Player.prototype.handleInput = function(key){
     else if(key == 'up'){
 
         if(this.y - 83 < 0){
-            console.log("You've won the game, HURRAY! :D");
             this.reset();
             counter++;
         }
@@ -122,13 +120,13 @@ Player.prototype.handleInput = function(key){
     else if(key == 'down'){
 
         if(this.y + 83 >= 400)
-            console.log("You can't go further down");
+            alert("You can't go further down");
         else{
             this.y += 83;
         }
     }
     else{
-        console.log("Please enter a valid arrow key");
+        alert("Please enter a valid arrow key");
     }
 };
 
@@ -149,7 +147,6 @@ var checkCollisions = function(){
 
         if(heroX > bugX && heroX < bugWidth && heroY > bugY && heroY <= bugHeight){
             player.reset();
-            console.log("collisions!!");
             counter--;
         }
     }
