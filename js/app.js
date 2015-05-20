@@ -131,6 +131,30 @@ Player.prototype.handleInput = function(key){
 };
 
 /**
+ * @desc Represents a life
+ * @constructor
+ */
+var Life = function(xValue) {
+    this.x = xValue;
+    this.y = 545;
+    this.sprite = 'images/Heart.png';
+}
+
+Life.prototype.render = function(){
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+
+}
+
+var life = new Life();
+var allLife = [];
+var lives = 3;
+for (var i = 0; i < lives; i++){
+    var xValue = i * 101;
+    var life = new Life(xValue);
+    allLife.push(life);
+}
+
+/**
   * @desc checks for collison between the player and the enemy
 */
 var checkCollisions = function(){
@@ -148,12 +172,14 @@ var checkCollisions = function(){
         if(heroX > bugX && heroX < bugWidth && heroY > bugY && heroY <= bugHeight){
             player.reset();
             counter--;
+            allLife.pop();
         }
     }
 };
 
 // Initialise global variables and objects
 var counter = 0;
+var lives = 3; //max is 5
 var allEnemies = [];
 var enemyWidth = 100;
 var enemyHeight = 60;
@@ -164,6 +190,15 @@ var enemyNum = 3;
 for (var i = 0; i < enemyNum; i++){
     var enemy = new Enemy();
     allEnemies.push(enemy);
+}
+
+//Instantiate and add lives on the game
+var life = new Life();
+var allLife = [];
+for (var i = 0; i < lives; i++){
+    var xValue = i * 101;
+    var life = new Life(xValue);
+    allLife.push(life);
 }
 
 // Instantiate the player

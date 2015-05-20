@@ -26,7 +26,7 @@ var Engine = (function(global) {
         lastTime;
 
     canvas.width = 505;
-    canvas.height = 606;
+    canvas.height = 777; //606
     doc.body.appendChild(canvas);
 
     /* This function serves as the kickoff point for the game loop itself
@@ -82,6 +82,11 @@ var Engine = (function(global) {
     function update(dt) {
         updateEntities(dt);
         checkCollisions();
+        if (allLife.length == 0){
+            gameOver();
+            console.log(allLife.length);
+            exit();
+        }
         reset();
     }
 
@@ -119,6 +124,11 @@ var Engine = (function(global) {
             numRows = 6,
             numCols = 5,
             row, col;
+
+        /**
+         *  clear everything that is on the screen
+         */
+        ctx.clearRect ( 0 , 0 , canvas.width, canvas.height );
 
         /* Loop through the number of rows and columns we've defined above
          * and, using the rowImages array, draw the correct image for that
@@ -161,7 +171,28 @@ var Engine = (function(global) {
             enemy.render();
         });
 
+        allLife.forEach(function(life){
+            life.render();
+        });
+
         player.render();
+    }
+
+    /*
+     * @desc Game Over Screen
+     */
+    var gameOver = function () {
+        // Game Over Text Attribute
+        ctx.font = "36pt Impact";
+        ctx.fillStyle = "white";
+        ctx.strokeStyle = "black";
+        ctx.lineWidth = 3;
+
+        ctx.fillText("Game Over", 150, 300);
+        ctx.strokeText("Game Over", 150, 300);
+
+        ctx.fillText("Your Score is " + counter, 100, 350);
+        ctx.strokeText("Your Score is " + counter, 100, 350);
     }
 
     /* This function does nothing but it could have been a good place to
@@ -185,7 +216,8 @@ var Engine = (function(global) {
         'images/char-cat-girl.png',
         'images/char-horn-girl.png',
         'images/char-pink-girl.png',
-        'images/char-princess-girl.png'
+        'images/char-princess-girl.png',
+        'images/Heart.png'
     ]);
     Resources.onReady(init);
 
